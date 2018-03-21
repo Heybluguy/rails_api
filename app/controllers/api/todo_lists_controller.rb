@@ -15,7 +15,7 @@ class Api::TodoListsController < ApplicationController
     if list.save
   	  render json: {
         status: 200,
-        message: "Succesfully Created To-do list.",
+        message: "Successfully Created To-do List.",
         todo_list: list
       }.to_json
     else
@@ -24,6 +24,15 @@ class Api::TodoListsController < ApplicationController
         errors: list.errors
       }.to_json
     end
+  end
+
+  def destroy
+    list = TodoList.find(params[:id])
+    list.destroy
+    render json: {
+      status: 200,
+      message: "Successfully Deleted To-do List."
+    }.to_json
   end
 
   private
