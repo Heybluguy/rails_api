@@ -15,7 +15,7 @@ class Api::TodoListsController < ApplicationController
     if list.save
   	  render json: {
         status: 200,
-        message: "Successfully Created To-do List.",
+        message: "Successfully Created To-do list.",
         todo_list: list
       }.to_json
     else
@@ -26,12 +26,30 @@ class Api::TodoListsController < ApplicationController
     end
   end
 
+  def update
+    list = TodoList.find(params[:id])
+    if list.update(list_params)
+      render json {
+        status: 200,
+        message: "Successfully Updated To-do list.",
+        todo_list: list
+      }.to_json
+    else
+      render json {
+        status: 500,
+        message: "The To-do list could not be Updated."
+        todo_list: list
+      }.to_json
+    end
+
+  end
+
   def destroy
     list = TodoList.find(params[:id])
     list.destroy
     render json: {
       status: 200,
-      message: "Successfully Deleted To-do List."
+      message: "Successfully Deleted To-do list."
     }.to_json
   end
 
